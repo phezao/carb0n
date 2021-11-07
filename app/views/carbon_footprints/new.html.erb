@@ -1,15 +1,17 @@
 <h1 class="text-5xl text-green-200">Calculator</h1>
 
-<%= simple_form_for(@carbon_footprint) do |f| %>
-  <%= f.simple_fields_for(:transport_footprint, TransportFootprint.new) do |p| %>
-    <%= p.input :weekly_km_car %>
-    <%= p.input :vehicle_fuel, collection: ['gasolina', 'diesel', 'etanol', 'gnv'] %>
-    <%= p.input :vehicle_efficiency %>
-    <%= p.input :weekly_km_bus %>
-    <%= p.input :weekly_km_train %>
-    <%= p.input :weekly_km_metro %>
-    <%= p.input :short_flights_year %>
-    <%= p.input :long_flights_year %>
+<div class="p-4 font-bold my-4 mx-auto">
+  <%= simple_form_for(@carbon_footprint) do |f| %>
+    <%= f.simple_fields_for(:transport_footprint, TransportFootprint.new) do |p| %>
+      <%= p.input :weekly_km_car %>
+      <%= p.input :vehicle_fuel, collection: ['gasolina', 'diesel', 'etanol', 'gnv'] %>
+      <%= p.input :vehicle_efficiency %>
+      <%= p.input :weekly_km_bus %>
+      <%= p.input :weekly_km_train %>
+      <%= p.input :weekly_km_metro %>
+      <%= p.input :short_flights_year %>
+      <%= p.input :long_flights_year %>
+    <% end %>
+    <%= f.submit "Submit", disable_with: 'Submiting...' %>
   <% end %>
-  <%= f.submit "Submit", disable_with: 'Submiting...' %>
-<% end %>
+</div>
