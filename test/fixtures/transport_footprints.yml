@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  carbon_footprint: one
+  weekly_km_car: 1
+  vehicle_efficiency: 1
+  weekly_km_bus: 1
+  weekly_km_metro: 1
+  weekly_km_train: 1
+  short_flights_year: 1
+  long_flights_year: 1
+  vehicle_fuel: MyString
+
+two:
+  carbon_footprint: two
+  weekly_km_car: 1
+  vehicle_efficiency: 1
+  weekly_km_bus: 1
+  weekly_km_metro: 1
+  weekly_km_train: 1
+  short_flights_year: 1
+  long_flights_year: 1
+  vehicle_fuel: MyString

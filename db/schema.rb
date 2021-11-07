@@ -10,10 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_05_234633) do
+ActiveRecord::Schema.define(version: 2021_11_07_171029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "carbon_footprints", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_carbon_footprints_on_user_id"
+  end
+
+  create_table "examples", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.integer "star"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "transport_footprints", force: :cascade do |t|
+    t.bigint "carbon_footprint_id", null: false
+    t.integer "weekly_km_car", default: 0
+    t.integer "vehicle_efficiency", default: 0
+    t.integer "weekly_km_bus", default: 0
+    t.integer "weekly_km_metro", default: 0
+    t.integer "weekly_km_train", default: 0
+    t.integer "short_flights_year", default: 0
+    t.integer "long_flights_year", default: 0
+    t.string "vehicle_fuel", default: "gasolina"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["carbon_footprint_id"], name: "index_transport_footprints_on_carbon_footprint_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,8 +53,11 @@ ActiveRecord::Schema.define(version: 2021_11_05_234633) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "guest", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "carbon_footprints", "users"
+  add_foreign_key "transport_footprints", "carbon_footprints"
 end

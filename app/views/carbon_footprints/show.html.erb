@@ -1,0 +1,23 @@
+<h1 class="text-4xl font-bold">Resultado</h1>
+
+<div class="mb-4">
+  <h3 class="font-bold text-2xl">Veículo particular</h3>
+  <p>Emissões de diretas: <%= @carbon_footprint.transport_footprint.direct_tailpipe_emission %></p>
+  <p>Emissões de indiretas: <%= @carbon_footprint.transport_footprint.indirect_wtp_emission %></p>
+  <p>Emissões pela manufatura do veículo: <%= @carbon_footprint.transport_footprint.vehicle_manufacturing_emissions %></p>
+</div>
+
+<div class="mb-4">
+  <h3 class="font-bold text-2xl">Transporte Público</h3>
+  <p>Emissões de ônibus: <%= @carbon_footprint.transport_footprint.bus_emission %></p>
+  <p>Emissões de trem: <%= @carbon_footprint.transport_footprint.train_emission %></p>
+  <p>Emissões de metro: <%= @carbon_footprint.transport_footprint.metro_emission %></p>
+</div>
+
+<div class="mb-4">
+  <h3 class="font-bold text-2xl">Voos</h3>
+  <p>Emissões de voos curtos: <%= @carbon_footprint.transport_footprint.short_flight_emission %></p>
+  <p>Emissões de voos longos: <%= @carbon_footprint.transport_footprint.long_flight_emission %></p>
+</div>
+
+<h2 class="text-4xl font-bold">O total de emissões é de <%= @carbon_footprint.transport_footprint.total_emission %> toneladas de CO2 / ano</h2>
