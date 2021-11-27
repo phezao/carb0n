@@ -2,6 +2,10 @@
   "name": "carb0n",
   "private": true,
   "dependencies": {
+    "@inertiajs/inertia": "^0.10.1",
+    "@inertiajs/inertia-vue": "^0.7.2",
+    "@inertiajs/inertia-vue3": "^0.5.2",
+    "@inertiajs/progress": "^0.2.6",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -9,7 +13,9 @@
     "autoprefixer": "^9",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
-    "turbolinks": "^5.2.0",
+    "vue": "^2.6.14",
+    "vue-loader": "^15.9.8",
+    "vue-template-compiler": "^2.6.14",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },
