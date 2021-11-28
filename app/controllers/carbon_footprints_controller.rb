@@ -4,6 +4,7 @@ class CarbonFootprintsController < ApplicationController
     current_or_guest_user
     @carbon_footprint = CarbonFootprint.new
     authorize @carbon_footprint
+    render inertia: 'Calculator', props: {}
   end
 
   def create
