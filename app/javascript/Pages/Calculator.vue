@@ -3,7 +3,7 @@
     <form class="w-full h-full" @submit.prevent="handleSubmit">
       <div :ref="`question-${questions[0].id}`" class="h-full grid place-content-center">
         <BaseInput
-          v-model="answer.weekly_km_car"
+          v-model="transport_footprint_attributes.weekly_km_car"
           :question="questions[0].question"
           placeholder="Sua resposta..."
           type="number"
@@ -14,14 +14,14 @@
         <BaseSelect
           :question="questions[1].question"
           :options="questions[1].options"
-          v-model="answer.vehicle_fuel"
+          v-model="transport_footprint_attributes.vehicle_fuel"
         />
        <ScrollButton :id="questions[1].id" placeholder="Anterior" @goToElement="scrollToElement"/>
        <ScrollButton :id="questions[1].id" placeholder="Próximo" @goToElement="scrollToElement"/>
       </div>
       <div :ref="`question-${questions[2].id}`" class="h-full grid place-content-center">
         <BaseInput
-          v-model="answer.vehicle_efficiency"
+          v-model="transport_footprint_attributes.vehicle_efficiency"
           :question="questions[2].question"
           placeholder="Sua resposta..."
           type="number"
@@ -31,7 +31,7 @@
       </div>
       <div :ref="`question-${questions[3].id}`" class="h-full grid place-content-center">
         <BaseInput
-          v-model="answer.weekly_km_bus"
+          v-model="transport_footprint_attributes.weekly_km_bus"
           :question="questions[3].question"
           placeholder="Sua resposta..."
           type="number"
@@ -41,7 +41,7 @@
       </div>
       <div :ref="`question-${questions[4].id}`" class="h-full grid place-content-center">
         <BaseInput
-          v-model="answer.weekly_km_train"
+          v-model="transport_footprint_attributes.weekly_km_train"
           :question="questions[4].question"
           placeholder="Sua resposta..."
           type="number"
@@ -51,7 +51,7 @@
       </div>
       <div :ref="`question-${questions[5].id}`" class="h-full grid place-content-center">
         <BaseInput
-          v-model="answer.weekly_km_metro"
+          v-model="transport_footprint_attributes.weekly_km_metro"
           :question="questions[5].question"
           placeholder="Sua resposta..."
           type="number"
@@ -61,7 +61,7 @@
       </div>
       <div :ref="`question-${questions[6].id}`" class="h-full grid place-content-center">
         <BaseInput
-          v-model="answer.short_flights_year"
+          v-model="transport_footprint_attributes.short_flights_year"
           :question="questions[6].question"
           placeholder="Sua resposta..."
           type="number"
@@ -71,7 +71,7 @@
       </div>
       <div :ref="`question-${questions[7].id}`" class="h-full grid place-content-center">
         <BaseInput
-          v-model="answer.long_flights_year"
+          v-model="transport_footprint_attributes.long_flights_year"
           :question="questions[7].question"
           placeholder="Sua resposta..."
           type="number"
@@ -79,7 +79,7 @@
        <ScrollButton :id="questions[7].id" placeholder="Anterior" @goToElement="scrollToElement"/>
        <button type="submit">Submit</button>
       </div>
-      {{answer}}
+      {{transport_footprint_attributes}}
     </form>
   </div>
 </template>
@@ -99,7 +99,7 @@
     },
     data(){
       return {
-        answer: {
+        transport_footprint_attributes: {
           weekly_km_car: '',
           vehicle_fuel: '',
           vehicle_efficiency: '',
@@ -153,8 +153,15 @@
 
         element.scrollIntoView();
       },
-      handleSubmit(event){
-        console.log(event);
+      handleSubmit(){
+
+        const values = {
+          carbon_footprint: {
+            transport_footprint_attributes: this.transport_footprint_attributes
+          }
+        }
+        console.log(values);
+        this.$inertia.post('/carbon_footprints', values)
       }
     }
   }
