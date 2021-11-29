@@ -4,6 +4,7 @@ class CarbonFootprintsController < ApplicationController
     current_or_guest_user
     @carbon_footprint = CarbonFootprint.new
     authorize @carbon_footprint
+    render inertia: 'Calculator', props: {}
   end
 
   def create
@@ -25,6 +26,10 @@ class CarbonFootprintsController < ApplicationController
       redirect_to root_path unless @carbon_footprint
     elsif @carbon_footprint
       authorize @carbon_footprint
+      render inertia: 'Results', props: {
+        carbon_footprint: @carbon_footprint.as_json,
+        transport_footprint: @carbon_footprint.transport_footprint.as_json
+      }
     else
       skip_authorization
       redirect_to root_path
