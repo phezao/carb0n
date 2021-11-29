@@ -85,7 +85,6 @@
 </template>
 
 <script>
-  import TransportInput from "../Components/TransportInput.vue";
   import BaseInput from '../Components/BaseInput.vue';
   import BaseSelect from '../Components/BaseSelect.vue';
   import ScrollButton from '../Components/ScrollButton.vue';
