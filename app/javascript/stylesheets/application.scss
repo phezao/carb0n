@@ -1,3 +1,8 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
+
+.btn-primary {
+  @apply bg-primary shadow-lg border-none hover:bg-primary-hover;
+}
+
 @import 'tailwindcss/utilities';

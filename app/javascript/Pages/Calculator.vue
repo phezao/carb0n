@@ -1,85 +1,98 @@
 <template>
-  <div class="max-w-screen-lg mx-auto relative h-full">
+  <div class="max-w-screen-lg mx-auto h-full">
     <form class="w-full h-full" @submit.prevent="handleSubmit">
-      <div :ref="`question-${questions[0].id}`" class="h-full grid place-content-center">
+      <div :ref="`question-${questions[0].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
           v-model="transport_footprint_attributes.weekly_km_car"
           :question="questions[0].question"
           placeholder="Sua resposta..."
           type="number"
         />
-       <ScrollButton :id="questions[0].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+       <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[0].id" placeholder="Próximo" @goToElement="scrollToElement"/>
       </div>
-      <div :ref="`question-${questions[1].id}`" class="h-full grid place-content-center">
+      <div :ref="`question-${questions[1].id}`" class="h-screen flex flex-col justify-center">
         <BaseSelect
           :question="questions[1].question"
           :options="questions[1].options"
           v-model="transport_footprint_attributes.vehicle_fuel"
         />
-       <ScrollButton :id="questions[1].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-       <ScrollButton :id="questions[1].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        <div class="flex gap-4">
+          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[1].id" placeholder="Anterior" @goToElement="scrollToElement"/>
+          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[1].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        </div>
       </div>
-      <div :ref="`question-${questions[2].id}`" class="h-full grid place-content-center">
+      <div :ref="`question-${questions[2].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
           v-model="transport_footprint_attributes.vehicle_efficiency"
           :question="questions[2].question"
           placeholder="Sua resposta..."
           type="number"
         />
-       <ScrollButton :id="questions[2].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-       <ScrollButton :id="questions[2].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        <div class="flex gap-4">
+          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[2].id" placeholder="Anterior" @goToElement="scrollToElement"/>
+          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[2].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        </div>
       </div>
-      <div :ref="`question-${questions[3].id}`" class="h-full grid place-content-center">
+      <div :ref="`question-${questions[3].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
           v-model="transport_footprint_attributes.weekly_km_bus"
           :question="questions[3].question"
           placeholder="Sua resposta..."
           type="number"
         />
-       <ScrollButton :id="questions[3].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-       <ScrollButton :id="questions[3].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        <div class="flex gap-4">
+          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[3].id" placeholder="Anterior" @goToElement="scrollToElement"/>
+          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[3].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        </div>
       </div>
-      <div :ref="`question-${questions[4].id}`" class="h-full grid place-content-center">
+      <div :ref="`question-${questions[4].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
           v-model="transport_footprint_attributes.weekly_km_train"
           :question="questions[4].question"
           placeholder="Sua resposta..."
           type="number"
         />
-       <ScrollButton :id="questions[4].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-       <ScrollButton :id="questions[4].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        <div class="flex gap-4">
+         <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[4].id" placeholder="Anterior" @goToElement="scrollToElement"/>
+         <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[4].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        </div>
       </div>
-      <div :ref="`question-${questions[5].id}`" class="h-full grid place-content-center">
+      <div :ref="`question-${questions[5].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
           v-model="transport_footprint_attributes.weekly_km_metro"
           :question="questions[5].question"
           placeholder="Sua resposta..."
           type="number"
         />
-       <ScrollButton :id="questions[5].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-       <ScrollButton :id="questions[5].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        <div class="flex gap-4">
+         <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[5].id" placeholder="Anterior" @goToElement="scrollToElement"/>
+         <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[5].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+       </div>
       </div>
-      <div :ref="`question-${questions[6].id}`" class="h-full grid place-content-center">
+      <div :ref="`question-${questions[6].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
           v-model="transport_footprint_attributes.short_flights_year"
           :question="questions[6].question"
           placeholder="Sua resposta..."
           type="number"
         />
-       <ScrollButton :id="questions[6].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-       <ScrollButton :id="questions[6].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+       <div class="flex gap-4">
+         <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[6].id" placeholder="Anterior" @goToElement="scrollToElement"/>
+         <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[6].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+       </div>
       </div>
-      <div :ref="`question-${questions[7].id}`" class="h-full grid place-content-center">
+      <div :ref="`question-${questions[7].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
           v-model="transport_footprint_attributes.long_flights_year"
           :question="questions[7].question"
           placeholder="Sua resposta..."
           type="number"
         />
-       <ScrollButton :id="questions[7].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-       <button type="submit">Submit</button>
+         <div class="flex gap-4">
+          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[7].id" placeholder="Anterior" @goToElement="scrollToElement"/>
+          <button class="mt-8 w-24 btn-sm btn-wide btn btn-secondary" type="submit">resultado</button>
+        </div>
       </div>
-      {{transport_footprint_attributes}}
     </form>
   </div>
 </template>
@@ -91,10 +104,9 @@
 
   export default {
     components: {
-      TransportInput,
       BaseInput,
       BaseSelect,
-      ScrollButton
+      ScrollButton,
     },
     data(){
       return {

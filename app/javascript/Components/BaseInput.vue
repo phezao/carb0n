@@ -1,11 +1,12 @@
 <template>
   <div class="form-control">
-    <label class="block text-xl font-semibold">{{question}}</label>
+    <label class="block text-xl font-semibold mb-16">{{question}}</label>
     <input
       v-bind="$attrs"
-      class="input input-bordered w-full"
+      class="input input-bordered input-primary w-full"
       :value="value"
       @input="updateValue"
+      min="0"
     />
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div
     @click="goToElement"
-    class="self-start btn btn-primary"
+    class="btn btn-primary"
   >
     {{ placeholder }}
   </div>

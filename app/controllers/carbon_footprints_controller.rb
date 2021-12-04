@@ -27,8 +27,8 @@ class CarbonFootprintsController < ApplicationController
     elsif @carbon_footprint
       authorize @carbon_footprint
       render inertia: 'Results', props: {
-        carbon_footprint: @carbon_footprint.as_json,
-        transport_footprint: @carbon_footprint.transport_footprint.as_json
+        carbon_footprint: @carbon_footprint.total.as_json,
+        transport_footprint: @carbon_footprint.transport_footprint.total_emission.as_json
       }
     else
       skip_authorization
