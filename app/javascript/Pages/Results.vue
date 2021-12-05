@@ -5,11 +5,11 @@
       <h1 class="text-primary font-bold text-8xl mb-4">{{totalCarbonFootprint}}</h1>
       <p class="text-xl">toneladas de CO2eq por ano</p>
     </div>
-    <img :src="imagePath('clouds.png')" alt="" class="absolute top-96 -left-32 w-1/4">
-    <img :src="imagePath('clouds.png')" alt="" class="absolute top-28 -right-36 cloud-inverted w-1/4">
+    <img :src="imagePath('clouds.png')" alt="" class="hidden md:block absolute top-96 -left-32 w-1/4">
+    <img :src="imagePath('clouds.png')" alt="" class="hidden md:block absolute top-28 -right-36 cloud-inverted w-1/4">
     <button class="btn btn-primary">Neutralizar por R$ 32,92/mês</button>
-    <div class="flex justify-center gap-24 mt-48 mb-24">
-      <apexchart width="400" type="bar" :options="carbonFootprintChartWorld.options" :series="carbonFootprintChartWorld.series"></apexchart>
+    <div class="flex justify-center gap-24 mt-48 mb-24 flex-col md:flex-row items-center px-4">
+      <apexchart :width="graphWidth(400)" type="bar" :options="carbonFootprintChartWorld.options" :series="carbonFootprintChartWorld.series"></apexchart>
       <div class="bg-accent py-6 px-10 rounded-xl max-w-xs max-h-56">
         <p class="mb-5 font-semibold text-sm">Se todos tivessem o mesmo estilo de vida que você, a temperatura do planeta se elevaria em 1,5°C em</p>
         <h4 class="text-primary font-bold text-4xl">X anos</h4>
@@ -17,8 +17,8 @@
     </div>
     <div class="mb-8">
       <h3 class="text-xl font-semibold">Essa quantidade de gases de efeito estufa equivale a</h3>
-      <div class="flex justify-between mt-24">
-        <div class="flex flex-col items-center text-center">
+      <div class="flex md:flex-row flex-col gap-16 md:justify-between mt-12 md:mt-24 items-center md:items-baseline">
+        <div class="flex flex-col items-center text-center w-48">
           <img :src="imagePath('tree.png')" alt="tree" class="w-5/6 mb-4">
           <p>{{treesCutYear}}</p>
         </div>
@@ -32,24 +32,24 @@
         </div>
       </div>
     </div>
-    <div class="my-24 flex flex-col items-center">
-      <h3 class="text-xl font-semibold">Sua pegada de carbono vs média do Brasil, por categoria</h3>
-      <apexchart width="800" type="bar" :options="carbonFootprintChartComparison.options" :series="carbonFootprintChartComparison.series"></apexchart>
+    <div class="my-24 md:flex flex-col items-center px-4">
+      <h3 class="text-xl font-semibold mb-4">Sua pegada de carbono vs média do Brasil, por categoria</h3>
+      <apexchart :width="graphWidth(800, 300)" height="300" type="bar" :options="carbonFootprintChartComparison.options" :series="carbonFootprintChartComparison.series"></apexchart>
     </div>
-    <div class="flex justify-center gap-16 my-24">
+    <div class="flex justify-center gap-16 my-24 flex-col md:flex-row">
       <div class="flex flex-col gap-20 items-center">
-        <div class="bg-accent rounded-xl px-12 py-8 mt-12 compensa-card">
+        <div class="bg-accent rounded-xl px-12 py-8 md:mt-12 compensa-card">
           <h4 class="text-xl mb-4 font-semibold leading-8">Compense sua pegada de carbono</h4>
           <p class="mb-8">através de um plano mensal de</p>
           <h1 class="text-4xl text-primary font-bold">R$ 32,92</h1>
           <button class="btn btn-primary mt-8">Neutralizar</button>
           <p class="text-xs mt-12 leading-5">Você pode cancelar seu plano a qualquer momento</p>
         </div>
-        <div class="w-2/3">
+        <div class="w-2/3 hidden md:block">
           <img :src="imagePath('earth-globe.png')" alt="" class="w-full">
         </div>
       </div>
-      <div class="max-w-sm text-left beneficios">
+      <div class="max-w-sm text-left beneficios px-4">
         <h4 class="text-xl font-semibold mb-5">Como assinante <span class="text-primary">breeze</span>, você pode</h4>
         <h5>Escolher qual causa socioambiental quer financiar</h5>
         <p>Nossos projetos são agrupados por causa (energia sustentável, reflorestamento, desmatamento evitado, gestão de resíduos, ver outro), e cada pacote abrange iniciativas de diferentes países</p>
@@ -65,7 +65,7 @@
         <p>Transparente como a brisa! Mensalmente, você receberá atualizações sobre o status e os resultados dos projetos apoiados</p>
       </div>
     </div>
-    <div class="projects">
+    <div class="hidden md:block projects">
       <div class="projects-inside text-white text-center flex flex-col items-center py-12">
         <h1 class="font-bold text-2xl max-w-2xl mb-8">Ajude a financiar projetos socioambientais ao redor de todo o mundo</h1>
         <p class="max-w-2xl leading-7">As iniciativas apoiadas pela breeze são certificadas pela Verra ou pela Gold Standard, consideradas as entidades com os padrões climáticos mais elevados do mundo, e são selecionadas criteriosamente para garantir que os impactos prometidos serão de fato cumpridos</p>
@@ -75,10 +75,10 @@
         </div>
       </div>
     </div>
-    <div class="my-32">
+    <div class="md:my-32 my-24 px-4">
       <h1 class="text-4xl font-semibold text-left mb-6">Já quer começar a reduzir sua pegada?</h1>
       <h6 class="max-w-5xl text-left text-xl leading-9 mb-16">Você não precisa esperar se tornar carbono neutro para começar a reduzir suas emissões. Aqui estão algumas dicas de como você pode dar os primeiros passos:</h6>
-      <div class="grid grid-cols-3 grid-rows-2 text-left dicas-reducao my-8 gap-8">
+      <div class="grid md:grid-cols-3 md:grid-rows-2 grid-cols-2 grid-rows-3 text-left dicas-reducao md:my-8 gap-8">
         <div>
           <div class="w-16">
             <img class="w-full" :src="imagePath('house.png')" alt="">
@@ -114,12 +114,12 @@
           <h6>Energia</h6>
           <p>Utilize energia limpa através da instalação de painéis solares, por exemplo</p>
         </div>
-        <div class="bg-accent py-6 px-4 rounded-xl text-center mx-8">
+        <div class="bg-accent py-6 px-4 rounded-xl text-center mx-8 hidden md:block">
           <h3 class="text-xl font-semibold mb-4 w-32 mx-auto">E isso é só o começo!</h3>
           <p class="w-56 mx-auto">Neutralizando com a breeze, você recebe dicas e incentivos de redução específicos para o seu estilo de vida</p>
         </div>
       </div>
-      <button class="btn btn-primary mt-12">Neutralizar por R$ 32,92/mês</button>
+      <button class="btn btn-primary md:mt-12">Neutralizar por R$ 32,92/mês</button>
    </div>
   </div>
 </template>
@@ -128,8 +128,14 @@
 
   export default {
     props: ['carbon_footprint', 'transport_footprint'],
+    created(){
+      if (window.outerWidth < 425){
+        return this.isMobile = true;
+      }
+    },
     data() {
       return {
+        isMobile: false,
         carbonFootprintChartWorld: {
           options: {
             chart: {
@@ -243,6 +249,14 @@
         const result = Math.round(resultKm);
 
         return `${result} km rodados em um carro médio`
+      },
+    },
+    methods: {
+      graphWidth(value, anotherDimension){
+        if (this.isMobile){
+          return anotherDimension || value / 1.5;
+        }
+        return value;
       }
     }
   }
