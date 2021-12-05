@@ -1,6 +1,6 @@
 <template>
   <div class="form-control">
-    <label class="block text-xl font-semibold mb-16">{{question}}</label>
+    <label class="block text-xl font-semibold mb-8 md:mb-16">{{question}}</label>
     <select class="select select-bordered select-primary w-full" :value="value" @change="updateValue">
       <option
         v-for="(option, index) in options"

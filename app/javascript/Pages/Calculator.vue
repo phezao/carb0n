@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-screen-lg mx-auto h-full">
+  <div class="max-w-screen-lg md:mx-auto mx-4 h-full">
     <form class="w-full h-full" @submit.prevent="handleSubmit">
       <div :ref="`question-${questions[0].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput

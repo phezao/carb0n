@@ -1,6 +1,6 @@
 <template>
   <div class="form-control">
-    <label class="block text-xl font-semibold mb-16">{{question}}</label>
+    <label class="block text-xl font-semibold mb-8 md:mb-16">{{question}}</label>
     <input
       v-bind="$attrs"
       class="input input-bordered input-primary w-full"
