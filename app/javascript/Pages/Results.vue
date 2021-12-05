@@ -5,6 +5,8 @@
       <h1 class="text-primary font-bold text-8xl mb-4">{{totalCarbonFootprint}}</h1>
       <p class="text-xl">toneladas de CO2eq por ano</p>
     </div>
+    <img :src="imagePath('clouds.png')" alt="" class="absolute top-96 -left-32 w-1/4">
+    <img :src="imagePath('clouds.png')" alt="" class="absolute top-28 -right-36 cloud-inverted w-1/4">
     <button class="btn btn-primary">Neutralizar por R$ 32,92/mês</button>
     <div class="flex justify-center gap-24 mt-48 mb-24">
       <apexchart width="400" type="bar" :options="carbonFootprintChartWorld.options" :series="carbonFootprintChartWorld.series"></apexchart>
@@ -291,5 +293,8 @@
   }
   .projects-inside{
     position: relative;
+  }
+  .cloud-inverted{
+    transform: scaleX(-1);
   }
 </style>
