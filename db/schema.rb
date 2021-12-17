@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_07_171029) do
+ActiveRecord::Schema.define(version: 2021_12_07_211241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,19 @@ ActiveRecord::Schema.define(version: 2021_11_07_171029) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "finished?", default: false
     t.index ["user_id"], name: "index_carbon_footprints_on_user_id"
+  end
+
+  create_table "energy_footprints", force: :cascade do |t|
+    t.bigint "carbon_footprint_id", null: false
+    t.string "state_residence"
+    t.string "gas_type"
+    t.integer "gas_spending"
+    t.integer "electricity_spending"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["carbon_footprint_id"], name: "index_energy_footprints_on_carbon_footprint_id"
   end
 
   create_table "examples", force: :cascade do |t|
@@ -28,6 +40,28 @@ ActiveRecord::Schema.define(version: 2021_11_07_171029) do
     t.integer "star"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "home_footprints", force: :cascade do |t|
+    t.bigint "carbon_footprint_id", null: false
+    t.integer "house_size"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["carbon_footprint_id"], name: "index_home_footprints_on_carbon_footprint_id"
+  end
+
+  create_table "product_footprints", force: :cascade do |t|
+    t.bigint "carbon_footprint_id", null: false
+    t.integer "red_meat_consumption"
+    t.integer "dairy_consumption"
+    t.integer "white_meat_consumption"
+    t.integer "eggs_consumption"
+    t.integer "clothes_spending"
+    t.integer "furniture_spending"
+    t.integer "service_spending"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["carbon_footprint_id"], name: "index_product_footprints_on_carbon_footprint_id"
   end
 
   create_table "transport_footprints", force: :cascade do |t|
@@ -59,5 +93,8 @@ ActiveRecord::Schema.define(version: 2021_11_07_171029) do
   end
 
   add_foreign_key "carbon_footprints", "users"
+  add_foreign_key "energy_footprints", "carbon_footprints"
+  add_foreign_key "home_footprints", "carbon_footprints"
+  add_foreign_key "product_footprints", "carbon_footprints"
   add_foreign_key "transport_footprints", "carbon_footprints"
 end

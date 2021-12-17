@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  carbon_footprint: one
+  state_residence: MyString
+  gas_type: MyString
+  gas_spending: 1
+  electricity_spending: 1
+
+two:
+  carbon_footprint: two
+  state_residence: MyString
+  gas_type: MyString
+  gas_spending: 1
+  electricity_spending: 1
