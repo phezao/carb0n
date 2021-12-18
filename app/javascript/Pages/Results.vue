@@ -127,7 +127,15 @@
 <script>
 
   export default {
-    props: ['carbon_footprint', 'transport_footprint', 'guest'],
+    props: [
+      'guest',
+      'carbon_footprint',
+      'transport_footprint',
+      'energy_footprint',
+      'product_footprint',
+      'home_footprint',
+      'diet_footprint'
+    ],
     created(){
       if (window.outerWidth < 425){
         return this.isMobile = true;
@@ -216,7 +224,13 @@
           series: [
             {
               name: 'Você',
-              data: [2.2, 1.1, (Math.round(this.transport_footprint * 10) / 10), 0.4, 0.2 ]
+              data: [
+                (Math.round(this.home_footprint * 10) / 10),
+                (Math.round(this.product_footprint * 10) / 10),
+                (Math.round(this.transport_footprint * 10) / 10),
+                (Math.round(this.diet_footprint * 10) / 10),
+                (Math.round(this.energy_footprint * 10) / 10)
+              ]
             },
             {
               name: 'Brasil',
