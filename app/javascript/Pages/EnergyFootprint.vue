@@ -8,7 +8,10 @@
           v-model="carbon_footprint.state_residence"
           :value="carbon_footprint.state_residence"
         />
-       <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[0].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        <div class="flex gap-4">
+          <button @click="previous" class="mt-8 w-24 btn-sm btn-wide btn btn-secondary previous-button">Anterior</button>
+          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[0].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        </div>
       </div>
       <div :ref="`question-${questions[1].id}`" class="h-screen flex flex-col justify-center">
         <BaseSelect
@@ -24,7 +27,7 @@
       </div>
       <div :ref="`question-${questions[2].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.gas_spending"
+          v-model.number="carbon_footprint.gas_spending"
           :value="carbon_footprint.gas_spending"
           :question="questions[2].question"
           placeholder="Sua resposta..."
@@ -37,7 +40,7 @@
       </div>
       <div :ref="`question-${questions[3].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.electricity_spending"
+          v-model.number="carbon_footprint.electricity_spending"
           :value="carbon_footprint.electricity_spending"
           :question="questions[3].question"
           placeholder="Sua resposta..."
@@ -45,6 +48,7 @@
         />
         <div class="flex gap-4">
           <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[3].id" placeholder="Anterior" @goToElement="scrollToElement"/>
+          <button @click="next" class="mt-8 w-24 btn-sm btn-wide btn btn-secondary next-button">Próximo</button>
         </div>
       </div>
     </div>
@@ -103,6 +107,12 @@
 
         element.scrollIntoView();
       },
+      previous(){
+        this.$emit('onPreviousClick')
+      },
+      next(){
+        this.$emit('onNextClick')
+      }
     }
   }
 </script>

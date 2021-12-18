@@ -1,14 +1,12 @@
 <template>
-  <div>
+  <div class="relative">
     <component
       :is="steps[currentStep].component"
       :carbon_footprint="carbon_footprint[steps[currentStep].label]"
+      @onPreviousClick="previous"
+      @onNextClick="next"
+      @onSubmit="submit"
     />
-    <div class="flex gap-4">
-      <button v-if="currentStep !== 0" @click="previous" class="mt-8 w-24 btn-sm btn-wide btn btn-secondary">Anterior</button>
-      <button v-if="currentStep < steps.length - 1" @click="next" class="mt-8 w-24 btn-sm btn-wide btn btn-secondary">Próximo</button>
-      <button v-if="currentStep === steps.length - 1" class="mt-8 w-24 btn-sm btn-wide btn btn-secondary" @click="submit">resultado</button>
-    </div>
   </div>
 </template>
 
@@ -25,36 +23,60 @@ import ProductFootprint from './ProductFootprint.vue';
       HomeFootprint,
       ProductFootprint
     },
+    props: {
+      origin: String,
+      id: Number,
+      weekly_km_car: Number,
+      vehicle_fuel: String,
+      vehicle_efficiency: Number,
+      weekly_km_bus: Number,
+      weekly_km_train: Number,
+      weekly_km_metro: Number,
+      short_flights_year: Number,
+      long_flights_year: Number,
+      state_residence: String,
+      gas_type: String,
+      gas_spending: Number,
+      electricity_spending: Number,
+      house_size: Number,
+      red_meat_consumption: Number,
+      white_meat_consumption: Number,
+      dairy_consumption: Number,
+      eggs_consumption: Number,
+      clothes_spending: Number,
+      furniture_spending: Number,
+      service_spending: Number,
+    },
     data(){
       return {
         carbon_footprint: {
           transport_footprint_attributes: {
-            weekly_km_car: '',
-            vehicle_fuel: '',
-            vehicle_efficiency: '',
-            weekly_km_bus: '',
-            weekly_km_train: '',
-            weekly_km_metro: '',
-            short_flights_year: '',
-            long_flights_year: '',
+            weekly_km_car: this.weekly_km_car,
+            vehicle_fuel: this.vehicle_fuel,
+            vehicle_efficiency: this.vehicle_efficiency,
+            weekly_km_bus: this.weekly_km_bus,
+            weekly_km_train: this.weekly_km_train,
+            weekly_km_metro: this.weekly_km_metro,
+            short_flights_year: this.short_flights_year,
+            long_flights_year: this.long_flights_year,
           },
           energy_footprint_attributes: {
-            state_residence: '',
-            gas_type: '',
-            gas_spending: '',
-            electricity_spending: '',
+            state_residence: this.state_residence,
+            gas_type: this.gas_type,
+            gas_spending: this.gas_spending,
+            electricity_spending: this.electricity_spending,
           },
           home_footprint_attributes: {
-            house_size: '',
+            house_size: this.house_size,
           },
           product_footprint_attributes: {
-            red_meat_consumption: '',
-            white_meat_consumption: '',
-            dairy_consumption: '',
-            eggs_consumption: '',
-            clothes_spending: '',
-            furniture_spending: '',
-            service_spending: '',
+            red_meat_consumption: this.red_meat_consumption,
+            white_meat_consumption: this.white_meat_consumption,
+            dairy_consumption: this.dairy_consumption,
+            eggs_consumption: this.eggs_consumption,
+            clothes_spending: this.clothes_spending,
+            furniture_spending: this.furniture_spending,
+            service_spending: this.service_spending,
           }
         },
         currentStep: 0,
@@ -80,9 +102,11 @@ import ProductFootprint from './ProductFootprint.vue';
     },
     methods: {
       next(){
+        window.scrollTo(0,0);
         return this.currentStep += 1;
       },
       previous(){
+        window.scrollTo(0,0);
         return this.currentStep -= 1;
       },
       submit(){
@@ -93,8 +117,12 @@ import ProductFootprint from './ProductFootprint.vue';
           }
         };
 
+        if(this.origin === "new"){
+          this.$inertia.post('/carbon_footprints', values)
+        }
 
-        this.$inertia.post('/carbon_footprints', values)
+        this.$inertia.put(`/carbon_footprints/${this.id}`, values)
+
       }
     }
   }

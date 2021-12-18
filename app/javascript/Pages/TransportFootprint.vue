@@ -3,7 +3,8 @@
     <div class="w-full h-full">
       <div :ref="`question-${questions[0].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.weekly_km_car"
+          v-model.number="carbon_footprint.weekly_km_car"
+          :value="carbon_footprint.weekly_km_car"
           :question="questions[0].question"
           placeholder="Sua resposta..."
           type="number"
@@ -15,6 +16,7 @@
           :question="questions[1].question"
           :options="questions[1].options"
           v-model="carbon_footprint.vehicle_fuel"
+          :value="carbon_footprint.vehicle_fuel"
         />
         <div class="flex gap-4">
           <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[1].id" placeholder="Anterior" @goToElement="scrollToElement"/>
@@ -23,7 +25,8 @@
       </div>
       <div :ref="`question-${questions[2].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.vehicle_efficiency"
+          v-model.number="carbon_footprint.vehicle_efficiency"
+          :value="carbon_footprint.vehicle_efficiency"
           :question="questions[2].question"
           placeholder="Sua resposta..."
           type="number"
@@ -35,7 +38,8 @@
       </div>
       <div :ref="`question-${questions[3].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.weekly_km_bus"
+          v-model.number="carbon_footprint.weekly_km_bus"
+          :value="carbon_footprint.weekly_km_bus"
           :question="questions[3].question"
           placeholder="Sua resposta..."
           type="number"
@@ -47,7 +51,8 @@
       </div>
       <div :ref="`question-${questions[4].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.weekly_km_train"
+          v-model.number="carbon_footprint.weekly_km_train"
+          :value="carbon_footprint.weekly_km_train"
           :question="questions[4].question"
           placeholder="Sua resposta..."
           type="number"
@@ -59,7 +64,8 @@
       </div>
       <div :ref="`question-${questions[5].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.weekly_km_metro"
+          v-model.number="carbon_footprint.weekly_km_metro"
+          :value="carbon_footprint.weekly_km_metro"
           :question="questions[5].question"
           placeholder="Sua resposta..."
           type="number"
@@ -71,7 +77,8 @@
       </div>
       <div :ref="`question-${questions[6].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.short_flights_year"
+          v-model.number="carbon_footprint.short_flights_year"
+          :value="carbon_footprint.short_flights_year"
           :question="questions[6].question"
           placeholder="Sua resposta..."
           type="number"
@@ -83,13 +90,15 @@
       </div>
       <div :ref="`question-${questions[7].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.long_flights_year"
+          v-model.number="carbon_footprint.long_flights_year"
+          :value="carbon_footprint.long_flights_year"
           :question="questions[7].question"
           placeholder="Sua resposta..."
           type="number"
         />
          <div class="flex gap-4">
           <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[7].id" placeholder="Anterior" @goToElement="scrollToElement"/>
+          <button @click="next" class="mt-8 w-24 btn-sm btn-wide btn btn-secondary next-button">Próximo</button>
         </div>
       </div>
     </div>
@@ -162,11 +171,13 @@
     },
     methods: {
       scrollToElement(refName){
-        console.log(this.$refs[refName]);
         const element = this.$refs[refName]
 
         element.scrollIntoView();
       },
+      next(){
+        this.$emit('onNextClick')
+      }
     }
   }
 </script>

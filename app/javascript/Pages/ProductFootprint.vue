@@ -3,19 +3,24 @@
     <form class="w-full h-full" @submit.prevent="handleSubmit">
       <div :ref="`question-${questions[0].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.red_meat_consumption"
+          v-model.number="carbon_footprint.red_meat_consumption"
+          :value="carbon_footprint.red_meat_consumption"
           :question="questions[0].question"
           placeholder="Sua resposta..."
           type="number"
         />
-       <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[0].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        <div class="flex gap-4">
+          <button @click="previous" class="mt-8 w-24 btn-sm btn-wide btn btn-secondary previous-button">Anterior</button>
+          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[0].id" placeholder="Próximo" @goToElement="scrollToElement"/>
+        </div>
       </div>
       <div :ref="`question-${questions[1].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
           :question="questions[1].question"
           placeholder="Sua resposta..."
           type="number"
-          v-model="carbon_footprint.white_meat_consumption"
+          v-model.number="carbon_footprint.white_meat_consumption"
+          :value="carbon_footprint.white_meat_consumption"
         />
         <div class="flex gap-4">
           <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[1].id" placeholder="Anterior" @goToElement="scrollToElement"/>
@@ -24,7 +29,8 @@
       </div>
       <div :ref="`question-${questions[2].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.dairy_consumption"
+          v-model.number="carbon_footprint.dairy_consumption"
+          :value="carbon_footprint.dairy_consumption"
           :question="questions[2].question"
           placeholder="Sua resposta..."
           type="number"
@@ -36,7 +42,8 @@
       </div>
       <div :ref="`question-${questions[3].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.eggs_consumption"
+          v-model.number="carbon_footprint.eggs_consumption"
+          :value="carbon_footprint.eggs_consumption"
           :question="questions[3].question"
           placeholder="Sua resposta..."
           type="number"
@@ -48,7 +55,8 @@
       </div>
       <div :ref="`question-${questions[4].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.clothes_spending"
+          v-model.number="carbon_footprint.clothes_spending"
+          :value="carbon_footprint.clothes_spending"
           :question="questions[4].question"
           placeholder="Sua resposta..."
           type="number"
@@ -60,7 +68,8 @@
       </div>
       <div :ref="`question-${questions[5].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.furniture_spending"
+          v-model.number="carbon_footprint.furniture_spending"
+          :value="carbon_footprint.furniture_spending"
           :question="questions[5].question"
           placeholder="Sua resposta..."
           type="number"
@@ -72,13 +81,15 @@
       </div>
       <div :ref="`question-${questions[6].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.service_spending"
+          v-model.number="carbon_footprint.service_spending"
+          :value="carbon_footprint.service_spending"
           :question="questions[6].question"
           placeholder="Sua resposta..."
           type="number"
         />
        <div class="flex gap-4">
          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[6].id" placeholder="Anterior" @goToElement="scrollToElement"/>
+         <button class="mt-8 w-24 btn-sm btn-wide btn btn-secondary results-button" @click="submit">resultado</button>
        </div>
       </div>
     </form>
@@ -143,11 +154,16 @@
     },
     methods: {
       scrollToElement(refName){
-        console.log(this.$refs[refName]);
         const element = this.$refs[refName]
 
         element.scrollIntoView();
       },
+      previous(){
+        this.$emit('onPreviousClick')
+      },
+      submit(){
+        this.$emit("onSubmit")
+      }
     }
   }
 </script>

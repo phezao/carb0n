@@ -3,11 +3,16 @@
     <div class="w-full h-full">
       <div :ref="`question-${questions[0].id}`" class="h-screen flex flex-col justify-center">
         <BaseInput
-          v-model="carbon_footprint.house_size"
+          v-model.number="carbon_footprint.house_size"
+          :value="carbon_footprint.house_size"
           :question="questions[0].question"
           placeholder="Sua resposta..."
           type="number"
         />
+        <div class="flex gap-4">
+          <button @click="previous" class="mt-8 w-24 btn-sm btn-wide btn btn-secondary previous-button">Anterior</button>
+          <button @click="next" class="mt-8 w-24 btn-sm btn-wide btn btn-secondary next-button">Próximo</button>
+        </div>
       </div>
     </div>
   </div>
@@ -23,7 +28,7 @@
     props: {
       carbon_footprint: {
         home_footprint_attributes: {
-          house_size: '',
+          house_size: Number,
         },
       }
     },
@@ -38,12 +43,12 @@
       }
     },
     methods: {
-      scrollToElement(refName){
-        console.log(this.$refs[refName]);
-        const element = this.$refs[refName]
-
-        element.scrollIntoView();
+      previous(){
+        this.$emit('onPreviousClick')
       },
+      next(){
+        this.$emit('onNextClick')
+      }
     }
   }
 </script>
