@@ -1,178 +1,128 @@
 <template>
-  <div class="max-w-screen-lg md:mx-auto mx-4 h-full">
-    <form class="w-full h-full" @submit.prevent="handleSubmit">
-      <div :ref="`question-${questions[0].id}`" class="h-screen flex flex-col justify-center">
-        <BaseInput
-          v-model="transport_footprint_attributes.weekly_km_car"
-          :question="questions[0].question"
-          placeholder="Sua resposta..."
-          type="number"
-        />
-       <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[0].id" placeholder="Próximo" @goToElement="scrollToElement"/>
-      </div>
-      <div :ref="`question-${questions[1].id}`" class="h-screen flex flex-col justify-center">
-        <BaseSelect
-          :question="questions[1].question"
-          :options="questions[1].options"
-          v-model="transport_footprint_attributes.vehicle_fuel"
-        />
-        <div class="flex gap-4">
-          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[1].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[1].id" placeholder="Próximo" @goToElement="scrollToElement"/>
-        </div>
-      </div>
-      <div :ref="`question-${questions[2].id}`" class="h-screen flex flex-col justify-center">
-        <BaseInput
-          v-model="transport_footprint_attributes.vehicle_efficiency"
-          :question="questions[2].question"
-          placeholder="Sua resposta..."
-          type="number"
-        />
-        <div class="flex gap-4">
-          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[2].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[2].id" placeholder="Próximo" @goToElement="scrollToElement"/>
-        </div>
-      </div>
-      <div :ref="`question-${questions[3].id}`" class="h-screen flex flex-col justify-center">
-        <BaseInput
-          v-model="transport_footprint_attributes.weekly_km_bus"
-          :question="questions[3].question"
-          placeholder="Sua resposta..."
-          type="number"
-        />
-        <div class="flex gap-4">
-          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[3].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[3].id" placeholder="Próximo" @goToElement="scrollToElement"/>
-        </div>
-      </div>
-      <div :ref="`question-${questions[4].id}`" class="h-screen flex flex-col justify-center">
-        <BaseInput
-          v-model="transport_footprint_attributes.weekly_km_train"
-          :question="questions[4].question"
-          placeholder="Sua resposta..."
-          type="number"
-        />
-        <div class="flex gap-4">
-         <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[4].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-         <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[4].id" placeholder="Próximo" @goToElement="scrollToElement"/>
-        </div>
-      </div>
-      <div :ref="`question-${questions[5].id}`" class="h-screen flex flex-col justify-center">
-        <BaseInput
-          v-model="transport_footprint_attributes.weekly_km_metro"
-          :question="questions[5].question"
-          placeholder="Sua resposta..."
-          type="number"
-        />
-        <div class="flex gap-4">
-         <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[5].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-         <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[5].id" placeholder="Próximo" @goToElement="scrollToElement"/>
-       </div>
-      </div>
-      <div :ref="`question-${questions[6].id}`" class="h-screen flex flex-col justify-center">
-        <BaseInput
-          v-model="transport_footprint_attributes.short_flights_year"
-          :question="questions[6].question"
-          placeholder="Sua resposta..."
-          type="number"
-        />
-       <div class="flex gap-4">
-         <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[6].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-         <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[6].id" placeholder="Próximo" @goToElement="scrollToElement"/>
-       </div>
-      </div>
-      <div :ref="`question-${questions[7].id}`" class="h-screen flex flex-col justify-center">
-        <BaseInput
-          v-model="transport_footprint_attributes.long_flights_year"
-          :question="questions[7].question"
-          placeholder="Sua resposta..."
-          type="number"
-        />
-         <div class="flex gap-4">
-          <ScrollButton class="mt-8 w-24 btn-sm" :id="questions[7].id" placeholder="Anterior" @goToElement="scrollToElement"/>
-          <button class="mt-8 w-24 btn-sm btn-wide btn btn-secondary" type="submit">resultado</button>
-        </div>
-      </div>
-    </form>
+  <div class="relative">
+    <component
+      :is="steps[currentStep].component"
+      :carbon_footprint="carbon_footprint[steps[currentStep].label]"
+      @onPreviousClick="previous"
+      @onNextClick="next"
+      @onSubmit="submit"
+    />
   </div>
 </template>
 
 <script>
-  import BaseInput from '../Components/BaseInput.vue';
-  import BaseSelect from '../Components/BaseSelect.vue';
-  import ScrollButton from '../Components/ScrollButton.vue';
+import TransportFootprint from './TransportFootprint.vue';
+import EnergyFootprint from './EnergyFootprint.vue';
+import HomeFootprint from './HomeFootprint.vue';
+import ProductFootprint from './ProductFootprint.vue';
 
   export default {
     components: {
-      BaseInput,
-      BaseSelect,
-      ScrollButton,
+      TransportFootprint,
+      EnergyFootprint,
+      HomeFootprint,
+      ProductFootprint
+    },
+    props: {
+      origin: String,
+      id: Number,
+      weekly_km_car: Number,
+      vehicle_fuel: String,
+      vehicle_efficiency: Number,
+      weekly_km_bus: Number,
+      weekly_km_train: Number,
+      weekly_km_metro: Number,
+      short_flights_year: Number,
+      long_flights_year: Number,
+      state_residence: String,
+      gas_type: String,
+      gas_spending: Number,
+      electricity_spending: Number,
+      house_size: Number,
+      red_meat_consumption: Number,
+      white_meat_consumption: Number,
+      dairy_consumption: Number,
+      eggs_consumption: Number,
+      clothes_spending: Number,
+      furniture_spending: Number,
+      service_spending: Number,
     },
     data(){
       return {
-        transport_footprint_attributes: {
-          weekly_km_car: '',
-          vehicle_fuel: '',
-          vehicle_efficiency: '',
-          weekly_km_bus: '',
-          weekly_km_train: '',
-          weekly_km_metro: '',
-          short_flights_year: '',
-          long_flights_year: '',
+        carbon_footprint: {
+          transport_footprint_attributes: {
+            weekly_km_car: this.weekly_km_car,
+            vehicle_fuel: this.vehicle_fuel,
+            vehicle_efficiency: this.vehicle_efficiency,
+            weekly_km_bus: this.weekly_km_bus,
+            weekly_km_train: this.weekly_km_train,
+            weekly_km_metro: this.weekly_km_metro,
+            short_flights_year: this.short_flights_year,
+            long_flights_year: this.long_flights_year,
+          },
+          energy_footprint_attributes: {
+            state_residence: this.state_residence,
+            gas_type: this.gas_type,
+            gas_spending: this.gas_spending,
+            electricity_spending: this.electricity_spending,
+          },
+          home_footprint_attributes: {
+            house_size: this.house_size,
+          },
+          product_footprint_attributes: {
+            red_meat_consumption: this.red_meat_consumption,
+            white_meat_consumption: this.white_meat_consumption,
+            dairy_consumption: this.dairy_consumption,
+            eggs_consumption: this.eggs_consumption,
+            clothes_spending: this.clothes_spending,
+            furniture_spending: this.furniture_spending,
+            service_spending: this.service_spending,
+          }
         },
-        questions: [
+        currentStep: 0,
+        steps: [
           {
-            id: 1,
-            question: "Quantos km anda semanalmente de carro/moto?",
+            component: TransportFootprint,
+            label: 'transport_footprint_attributes'
           },
           {
-            id: 2,
-            question: "Qual combustível você abastece seu veículo regularmente?",
-            options: ['gasolina','gnv', 'etanol', 'diesel'],
+            component: EnergyFootprint,
+            label: 'energy_footprint_attributes'
           },
           {
-            id: 3,
-            question: "Qual a eficiência do seu veículo?",
+            component: HomeFootprint,
+            label: 'home_footprint_attributes'
           },
           {
-            id: 4,
-            question: "Quantos km anda semanalmente de ônibus?",
-          },
-          {
-            id: 5,
-            question: "Quantos km anda semanalmente de trêm?",
-          },
-          {
-            id: 6,
-            question: "Quantos km anda semanalmente de metro?",
-          },
-          {
-            id: 7,
-            question: "Quantos vôos curtos por ano você pega?",
-          },
-          {
-            id: 8,
-            question: "Quantos vôos longos por ano você pega?",
+            component: ProductFootprint,
+            label: 'product_footprint_attributes'
           },
         ]
       }
     },
     methods: {
-      scrollToElement(refName){
-        console.log(this.$refs[refName]);
-        const element = this.$refs[refName]
-
-        element.scrollIntoView();
+      next(){
+        window.scrollTo(0,0);
+        return this.currentStep += 1;
       },
-      handleSubmit(){
-
+      previous(){
+        window.scrollTo(0,0);
+        return this.currentStep -= 1;
+      },
+      submit(){
         const values = {
           carbon_footprint: {
-            transport_footprint_attributes: this.transport_footprint_attributes
+            ...this.carbon_footprint,
+            'finished?': true
           }
+        };
+
+        if(this.origin === "new"){
+          this.$inertia.post('/carbon_footprints', values)
         }
-        console.log(values);
-        this.$inertia.post('/carbon_footprints', values)
+
+        this.$inertia.put(`/carbon_footprints/${this.id}`, values)
+
       }
     }
   }

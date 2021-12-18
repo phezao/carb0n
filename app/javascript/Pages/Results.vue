@@ -12,7 +12,7 @@
       <apexchart :width="graphWidth(400)" type="bar" :options="carbonFootprintChartWorld.options" :series="carbonFootprintChartWorld.series"></apexchart>
       <div class="bg-accent py-6 px-10 rounded-xl max-w-xs max-h-56">
         <p class="mb-5 font-semibold text-sm">Se todos tivessem o mesmo estilo de vida que você, a temperatura do planeta se elevaria em 1,5°C em</p>
-        <h4 class="text-primary font-bold text-4xl">X anos</h4>
+        <h4 class="text-primary font-bold text-4xl">{{yearsToWarm}} anos</h4>
       </div>
     </div>
     <div class="mb-8">
@@ -250,6 +250,17 @@
 
         return `${result} km rodados em um carro médio`
       },
+      yearsToWarm(){
+        const carbonBudget = 500;
+        const worldPopulation = 10500000000;
+        const gigatonConversor = 1102311310.9244;
+
+        const years = carbonBudget/((this.totalCarbonFootprint * worldPopulation)/gigatonConversor);
+
+        const result = Math.floor(years);
+
+        return result
+      }
     },
     methods: {
       graphWidth(value, anotherDimension){

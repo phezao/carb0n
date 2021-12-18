@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  red_meat_consumption: 1
+  dairy_consumption: 1
+  white_meat_consumption: 1
+  eggs_consumption: 1
+  clothes_spending: 1
+  furniture_spending: 1
+  service_spending: 1
+
+two:
+  red_meat_consumption: 1
+  dairy_consumption: 1
+  white_meat_consumption: 1
+  eggs_consumption: 1
+  clothes_spending: 1
+  furniture_spending: 1
+  service_spending: 1

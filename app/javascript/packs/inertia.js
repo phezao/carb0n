@@ -1,10 +1,10 @@
 import axios from 'axios'
 import Vue from 'vue'
 
-import { app, plugin } from '@inertiajs/inertia-vue'
-import { InertiaProgress } from '@inertiajs/progress'
+import { app, plugin } from '@inertiajs/inertia-vue';
+import { InertiaProgress } from '@inertiajs/progress';
 import VueApexCharts from 'vue-apexcharts';
-import Layout from '../Components/Layout.vue'
+import Layout from '../Components/Layout.vue';
 
 document.addEventListener('DOMContentLoaded', () => {
   const csrfToken = document.querySelector('meta[name=csrf-token]').content
