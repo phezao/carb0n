@@ -127,7 +127,7 @@
 <script>
 
   export default {
-    props: ['carbon_footprint', 'transport_footprint'],
+    props: ['carbon_footprint', 'transport_footprint', 'guest'],
     created(){
       if (window.outerWidth < 425){
         return this.isMobile = true;

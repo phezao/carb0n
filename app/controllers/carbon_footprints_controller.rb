@@ -3,10 +3,13 @@ class CarbonFootprintsController < ApplicationController
   def new
     current_or_guest_user
     @last_carbon_footprint = CarbonFootprint.where(user: current_or_guest_user).last
-    redirect_to edit_carbon_footprint_path(@last_carbon_footprint) unless @last_carbon_footprint.finished?
+    unless @last_carbon_footprint.nil? || @last_carbon_footprint.finished?
+      redirect_to edit_carbon_footprint_path(@last_carbon_footprint)
+    end
     @carbon_footprint = CarbonFootprint.new
     authorize @carbon_footprint
     render inertia: 'Calculator', props: {
+      guest: current_or_guest_user.guest?,
       origin: 'new',
       weekly_km_car: '',
       vehicle_fuel: '',
@@ -46,6 +49,7 @@ class CarbonFootprintsController < ApplicationController
     @carbon_footprint = CarbonFootprint.find_by(id: params[:id], user: current_or_guest_user)
     render_results = lambda {
       render inertia: 'Results', props: {
+        guest: current_or_guest_user.guest?,
         carbon_footprint: @carbon_footprint.total.as_json,
         transport_footprint: @carbon_footprint.transport_footprint.total_emission.as_json,
         energy_footprint: @carbon_footprint.energy_footprint.total_emission.as_json,
@@ -71,6 +75,7 @@ class CarbonFootprintsController < ApplicationController
   def edit
     render_calculator = lambda {
       render inertia: 'Calculator', props: {
+        guest: current_or_guest_user.guest?,
         origin: 'edit',
         id: params[:id],
         weekly_km_car: @carbon_footprint.transport_footprint.weekly_km_car || '',

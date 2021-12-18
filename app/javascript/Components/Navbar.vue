@@ -21,17 +21,34 @@
           <a tabindex="0" class="border-b-2 hover:border-primary border-white" href="https://andremcoletta.wixsite.com/carbonoooo/projetos">Projetos</a>
           <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
             <li>
-              <a tabindex="0" class="" href="https://andremcoletta.wixsite.com/carbonoooo/critérios-de-escolha">Critérios de escolha</a>
+              <a tabindex="0" href="https://andremcoletta.wixsite.com/carbonoooo/critérios-de-escolha">Critérios de escolha</a>
             </li>
           </ul>
         </div>
         <a class="border-b-2 hover:border-primary border-white" href="https://andremcoletta.wixsite.com/carbonoooo/nosso-objetivo">Impacto</a>
       </div>
       <div class="md:flex gap-4 hidden">
-        <button class="btn btn-outline rounded-full btn-sm transform hover:-translate-y-2">Log in</button>
+
+        <button class="btn btn-outline rounded-full btn-sm transform hover:-translate-y-2" :class="{ hidden: !$page.props.guest}">
+          <a href="/users/sign_in">Log in</a>
+        </button>
         <button class="btn btn-primary rounded-full btn-sm transform hover:-translate-y-2 hover:bg-primary">
           <Link href="/calculator">Neutralizar</Link>
         </button>
+        <div class="dropdown dropdown-hover">
+          <div tabindex="0" class="flex-none" :class="{ hidden: $page.props.guest }">
+            <button class="btn btn-square btn-ghost">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+              </svg>
+            </button>
+          </div>
+          <ul tabindex="0" class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+            <li>
+              <button @click="logout" tabindex="0">Logout</button>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
     <div :class="{ open: mobileNavIsOpen }" class="px-4 bg-white absolute top-20 left-0 w-full h-screen mobile-navbar">
@@ -53,6 +70,9 @@
     components: {
       Link
     },
+    mounted(){
+      console.log(this.$page.props);
+    },
     data(){
       return {
         mobileNavIsOpen: false
@@ -61,6 +81,11 @@
     methods: {
       setMobileNavIsOpen(value){
         return this.mobileNavIsOpen = value;
+      },
+      logout(){
+        console.log("quitei")
+
+        this.$inertia.delete(`/users/sign_out`)
       }
     }
   }

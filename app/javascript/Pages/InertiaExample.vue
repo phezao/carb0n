@@ -6,6 +6,7 @@
 <script>
   export default {
     props: {
+      guest: Boolean,
       name: { type: String, required: true },
     }
 }
